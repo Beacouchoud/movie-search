@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { Header } from "../components/header";
 import { Spinner } from "../components/spinner";
 import { API_KEY, BASE_IMG_URL, BASE_MOVIE_URL, LANG_ES } from "../services/utils";
-import "../static/styles/movieDetails.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 
@@ -34,7 +33,7 @@ export const DetailsPage = ({}) => {
         {isLoading && <Spinner></Spinner>}
         {movie && (
           <>
-            <div className="col4">
+            <div className="col4 pt-3">
               <figure class="figure">
                 <img
                   src={BASE_IMG_URL + (movie.poster_path || movie.backdrop_path)}
@@ -44,7 +43,7 @@ export const DetailsPage = ({}) => {
                 <figcaption class="figure-caption">{movie.tagline}</figcaption>
               </figure>
             </div>
-            <div className="col4 d-flex flex-column text-start">
+            <div className="col4 d-flex flex-column text-start justify-content-between pt-3 pb-5">
               <div>
                 <p className="fw-bold fs-5 text-info">Título</p>
                 <p>{movie.title}</p>
@@ -63,12 +62,12 @@ export const DetailsPage = ({}) => {
               </div>
               <div>
                 <p className="fw-bold fs-5 text-info">Puntuación</p>
-                <p> <FontAwesomeIcon icon={faStar}></FontAwesomeIcon> {movie.vote_average}</p>
+                <p> <FontAwesomeIcon className="text-warning" icon={faStar}></FontAwesomeIcon> {movie.vote_average}</p>
               </div>
-              <div>
-                <p className="fw-bold fs-5 text-info w-100">Géneros</p>
+              <div className="d-flex">
+                {/* <p className="fw-bold fs-5 text-info w-100">Géneros</p> */}
                 {movie.genres.map((genre, index) => (
-                  <div className="badge rounded-pill bg-info mx-2"> {genre.name} </div>
+                  <h5> <span className="badge rounded-pill bg-info me-3"> {genre.name}</span> </h5>
                 ))}
               </div>
             </div>
