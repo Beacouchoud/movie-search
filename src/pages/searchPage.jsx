@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Header } from "../components/header";
+import { MovieCard } from "../components/movieCard";
 import { SearchBar } from "../components/searchBar";
+import { Spinner } from "../components/spinner";
 
 export const SearchPage = ({}) => {
-
-    const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [movies, setMovies] = useState();
   return (
     <>
       <div className="container-fluid">
@@ -19,16 +22,33 @@ export const SearchPage = ({}) => {
             </Link>
           </div>
           <div className="col-6 m-auto">
-            <SearchBar></SearchBar>
+            <SearchBar 
+                setSearchTerm={setSearchTerm} 
+                searchTerm={searchTerm} 
+                setIsLoading={setIsLoading} 
+                setMovies={setMovies}>       
+            </SearchBar>
           </div>
           <div className="col-2 m-auto">
-            <select class="form-select form-select-lg " aria-label=".form-select-lg example">
-              <option selected>Todos los géneros</option>
+            <select class="form-select form-select-lg" defaultValue={0} aria-label=".form-select-lg example">
+              <option value="0">Todos los géneros</option>
               <option value="1">Romantica</option>
               <option value="2">Drama</option>
               <option value="3">Comedia</option>
             </select>
           </div>
+        </div>
+        <div className="row">
+            <div className="col-8 m-auto">
+            {isLoading && <Spinner></Spinner>}
+            {movies && (
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+              {movies.map((movie, index) => (
+                <MovieCard class="col" movie={movie}></MovieCard>
+              ))}
+            </div>
+          )}
+            </div>
         </div>
       </div>
     </>
