@@ -29,9 +29,9 @@ export const PopularMoviesPage = ({}) => {
         <div className="col-8 m-auto">
           {isLoading && <Spinner></Spinner>}
           {popularMovies && (
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-              {popularMovies.map((movie, index) => (
-                <MovieCard class="col" movie={movie}></MovieCard>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 d-flex justify-content-evenly">
+              {popularMovies.slice(0,10).map((movie, index) => (
+                <MovieCard movie={movie} key={movie.movieId} index={index} type={"top10"}></MovieCard>
               ))}
             </div>
           )}
