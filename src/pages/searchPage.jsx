@@ -42,7 +42,7 @@ export const SearchPage = ({}) => {
             <div className="col-8 m-auto">
             {isLoading && <Spinner></Spinner>}
             {movies && (
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 d-flex justify-content-evenly">
               {movies.map((movie, index) => (
                 <MovieCard class="col" movie={movie}></MovieCard>
               ))}
