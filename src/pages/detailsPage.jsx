@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import { Header } from "../components/header";
 import { Spinner } from "../components/spinner";
 import { API_KEY, BASE_IMG_URL, BASE_MOVIE_URL, LANG_ES } from "../services/utils";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 
 export const DetailsPage = ({}) => {

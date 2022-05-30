@@ -6,3 +6,14 @@
 .btn-outline-info:hover {
     color: #f8f9fa !important;
 }
+
+.go-top-btn{
+    width: 5rem !important;
+    height: 5rem !important;
+    color: #f8f9fa !important;
+}
+
+.go-top-btn .icon{
+    width: 2rem !important;
+    height: 2rem !important;
+}
