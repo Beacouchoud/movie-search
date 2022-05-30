@@ -1,0 +1,7 @@
+.btn, .btn:active:focus, .form-control:focus, .form-select:focus {
+    box-shadow: none !important;
+}
+
+.btn-outline-info:hover {
+    color: #f8f9fa !important;
+}
