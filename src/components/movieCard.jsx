@@ -10,7 +10,7 @@ export const MovieCard = ({ movie, type, index }) => {
         <img src={BASE_IMG_URL + (movie?.poster_path || movie?.backdrop_path)} className="card-img-top" alt="..." />
       )}
       <div className="card-body d-flex flex-column">
-        <h5 className="card-title">{movie.title}</h5>
+        <h5 className="card-title">{movie.title || movie.name}</h5>
         <Link to={`/${movie.id}`} className="btn btn-info text-light mt-auto w-50 mx-auto">
           Ver detalles
         </Link>

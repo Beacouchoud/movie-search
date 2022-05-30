@@ -37,6 +37,7 @@ export const SearchPage = ({searchSeries, setSearchSeries }) => {
               movies={movies}
               setShowMessage={setShowMessage}
               setShowNoResults={setShowNoResults}
+              searchSeries={searchSeries}
             ></SearchBar>
           </div>
         </div>

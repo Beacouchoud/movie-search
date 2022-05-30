@@ -37,13 +37,13 @@ export const PopularMoviesPage = ({ searchSeries, setSearchSeries }) => {
         {" "}
         <div className="col-8 m-auto">
           {isLoading && <Spinner></Spinner>}
-          {searchSeries && (
+          {searchSeries && (popularSeries && (
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 d-flex justify-content-evenly">
               {popularSeries.slice(0, 10).map((serie, index) => (
                 <MovieCard movie={serie} key={serie.id} index={index} type={"top10"}></MovieCard>
               ))}
             </div>
-          )}
+          ))}
           {!searchSeries && (popularMovies && (
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 d-flex justify-content-evenly">
               {popularMovies.slice(0, 10).map((movie, index) => (
