@@ -5,38 +5,38 @@ on:
     branches:
       - master
 
-  jobs:
-    Deployment:
-      runs-on: ubuntu-latest
-      env:
-        CI: false
-      steps:
-        - name: Clona el código del repositorio
-          uses: actions/checkout@v2
- 
-        - name: Cachea los módulos de node
-          uses: actions/cache@v2
-          env:
-            cache-name: cache-node-modules
-          with:
-            path: ~/.npm
-            key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-            restore-keys: |
-              ${{ runner.os }}-build-${{ env.cache-name }}-
-              ${{ runner.os }}-build-
-              ${{ runner.os }}-
-  
-        - name: Instala los paquetes
-          run: npm install
-  
-        - name: Ejecuta los tests
-          run: npm run test
-  
-        - name: Compila la build
-          run: npm run build
-  
-        - name: Despliegue 🚀
-          uses: JamesIves/github-pages-deploy-action@4.1.7
-          with:
-            branch: gh-pages
-            folder: build
+jobs:
+  Deployment:
+    runs-on: ubuntu-latest
+    env:
+      CI: false
+    steps:
+      - name: Clona el código del repositorio
+        uses: actions/checkout@v2
+
+      - name: Cachea los módulos de node
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Instala los paquetes
+        run: npm install
+
+      - name: Ejecuta los tests
+        run: npm run test
+
+      - name: Compila la build
+        run: npm run build
+
+      - name: Despliegue 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.7
+        with:
+          branch: gh-pages
+          folder: build
