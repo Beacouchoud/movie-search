@@ -6,11 +6,11 @@ import { SearchBar } from "../components/searchBar";
 import { Spinner } from "../components/spinner";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 
-export const SearchPage = ({}) => {
+export const SearchPage = ({ searchSeries, setSearchSeries }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [movies, setMovies] = useState();
-  const [showMessage, setShowMessage] = useState(false);
+  const [showMessage, setShowMessage] = useState(true);
   const [showNoResults, setShowNoResults] = useState(false);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export const SearchPage = ({}) => {
   }, [movies]);
 
   const scrollTop = () => {
-    document.querySelector("#header").scrollIntoView({block: "end", behavior: "smooth"});
+    document.querySelector("#header").scrollIntoView({ block: "end", behavior: "smooth" });
   };
   return (
     <>
@@ -36,6 +36,7 @@ export const SearchPage = ({}) => {
               movies={movies}
               setShowMessage={setShowMessage}
               setShowNoResults={setShowNoResults}
+              searchSeries={searchSeries}
             ></SearchBar>
           </div>
         </div>
@@ -44,7 +45,7 @@ export const SearchPage = ({}) => {
             {isLoading && <Spinner></Spinner>}
             {(!!isLoading || movies) && (
               <>
-                {showMessage && <h3 className="mb-5">Ahora en cines</h3>}
+                {showMessage && (searchSeries ? <h3 className="mb-5">Ahora en TV</h3> :<h3 className="mb-5">Ahora en cines</h3>)}
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 d-flex justify-content-evenly">
                   {movies && movies.map((movie, index) => <MovieCard className="col" movie={movie} key={index}></MovieCard>)}
                 </div>
