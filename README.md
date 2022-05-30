@@ -68,6 +68,21 @@ You can even see the top 10 most popular movies of the moment on TMBD.
 Finally, all these features have been implemented to the series search section. And in addition to performing any search or viewing the top 10, you will also see the series that are currently on air.
 
 
+### Demo movies: 
+
+
+https://user-images.githubusercontent.com/34965770/171056554-4000e442-a0dd-4ebc-9c15-42170ae14643.mp4
+
+<sub>The search type and genre selectors are not visible when recording the screen, but they are there. <sub>
+
+### Demo series:
+
+
+https://user-images.githubusercontent.com/34965770/171056597-f8ab17b4-8388-4418-9af3-f0e885fb35a7.mp4
+
+
+<sub>The search type and genre selectors are not visible when recording the screen, but they are there. <sub>
+
 
 ## 🗺️ Roadmap <a id = "roadmap"></a>
 [↑ Table of contents](#table-of-contents)
