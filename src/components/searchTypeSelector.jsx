@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { GET_GENRES_URL } from "../services/utils";
 import "../static/styles/spinner.css";
 
-export const SearchTypeSelector = ({ setSearchType }) => {
+export const SearchTypeSelector = ({ setSearchType, searchType }) => {
   const searchTypes = [
     {
       id: "1",
@@ -16,7 +16,7 @@ export const SearchTypeSelector = ({ setSearchType }) => {
     <select
       onChange={(ev) => setSearchType(ev.target.value)}
       className="form-select form-select-lg"
-      defaultValue="1"
+      value={searchType}
       aria-label=".form-select-lg example"
     >
       {searchTypes &&
