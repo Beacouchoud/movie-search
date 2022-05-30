@@ -9,7 +9,7 @@ function App() {
   const [searchSeries, setSearchSeries] = useState(false);
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
           <Route path="/" element={<SearchPage searchSeries={searchSeries} setSearchSeries={setSearchSeries} />} />
           <Route path=":movieId" element={<DetailsPage  searchSeries={searchSeries} setSearchSeries={setSearchSeries} />} />
