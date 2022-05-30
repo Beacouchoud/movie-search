@@ -7,119 +7,49 @@ import { SearchTypeSelector } from "./searchTypeSelector";
 export const SearchBar = ({ setSearchTerm, searchTerm, setIsLoading, setMovies, setShowMessage }) => {
   const [genre, setGenre] = useState(0);
   const [searchType, setSearchType] = useState("1");
+  let page = 0;
+  let response;
+  let moviesList = [];
+  let totalPages = 0;
 
-  const searchMovies = async () => {
-    console.log("by  title");
-    setIsLoading(true);
-    let moviesList = [];
-    let response;
-    let page = 0;
-    let totalPages = 0;
-    if (searchTerm === "") {
-      do {
-        page++;
-        response = await fetch(LATEST_MOVIES_URL + "&page=" + page);
-        const moviesResult = await response.json();
-        totalPages = moviesResult.total_pages;
-        if (genre === 0 || genre === "0") {
-          moviesList.push(...moviesResult.results);
-        } else {
-          console.log(moviesResult.results.filter((movie) => movie.genre_ids.includes(+genre)));
-          moviesList.push(...moviesResult.results.filter((movie) => movie.genre_ids.includes(+genre)));
-        }
-      } while (page <= totalPages);
-    } else {
-      let page = 1;
-      do {
-        if (page > 25) break;
-        response = await fetch(BASE_SEARCH_MOVIE_URL + searchTerm + "&page=" + page);
-        const moviesResult = await response.json();
-        totalPages = moviesResult.total_pages;
-        if (+genre === 0) moviesList.push(...moviesResult.results);
-        else moviesList.push(...moviesResult.results.filter((movie) => movie.genre_ids.includes(+genre)));
-        page++;
-      } while (page <= totalPages);
-    }
-
+  const getLatestMovies = async () => {
+    do {
+      page++;
+      response = await fetch(LATEST_MOVIES_URL + "&page=" + page);
+      const moviesResult = await response.json();
+      totalPages = moviesResult.total_pages;
+      if (+genre === 0) {
+        moviesList.push(...moviesResult.results.filter((movie) => movie.adult === false));
+      } else {
+        moviesList.push(...moviesResult.results.filter((movie) => movie.genre_ids.includes(+genre)));
+      }
+    } while (page <= totalPages);
     setMovies(moviesList);
-    setIsLoading(false);
-    setShowMessage(false);
   };
 
-  const handleForm = (ev) => {
-    ev.preventDefault();
-    searchMovies();
-  };
-
-  useEffect(() => {
-    handleSearch();
-  }, [genre, searchType]);
-
-  const searchMoviesByOriginalTitle = async () => {
-    console.log("by original title");
-    setIsLoading(true);
-    let moviesList = [];
-    let response;
-    let page = 0;
-    let totalPages = 0;
-    if (searchTerm === "") {
+  const getMoviesWithSearchterm = async () => {
+    if (searchType === "1" || searchType === "2") {
       do {
         page++;
-        response = await fetch(LATEST_MOVIES_URL + "&page=" + page);
-        const moviesResult = await response.json();
-        totalPages = moviesResult.total_pages;
-        if (genre === 0 || genre === "0") {
-          moviesList.push(...moviesResult.results);
-        } else {
-          console.log(moviesResult.results.filter((movie) => movie.genre_ids.includes(+genre)));
-          moviesList.push(...moviesResult.results.filter((movie) => movie.genre_ids.includes(+genre)));
-        }
-      } while (page <= totalPages);
-    } else {
-      let page = 1;
-      do {
         if (page > 25) break;
+
         response = await fetch(BASE_SEARCH_MOVIE_URL + searchTerm + "&page=" + page);
         const moviesResult = await response.json();
         totalPages = moviesResult.total_pages;
         if (+genre === 0) moviesList.push(...moviesResult.results.filter((movie) => movie.adult === false));
-        else
-          moviesList.push(
-            ...moviesResult.results.filter(
-              (movie) => movie.genre_ids.includes(+genre) && movie.original_title.includes(searchTerm) && movie.adult === false
-            )
-          );
-        page++;
-      } while (page <= totalPages);
-    }
-    setMovies(moviesList);
-    setIsLoading(false);
-    setShowMessage(false);
-  };
-
-  const searchMoviesByOverview = async () => {
-    console.log("by  overview");
-    setIsLoading(true);
-    let moviesList = [];
-    let response;
-    let page = 0;
-    let totalPages = 0;
-    if (searchTerm === "") {
-      do {
-        page++;
-        response = await fetch(LATEST_MOVIES_URL + "&page=" + page);
-        const moviesResult = await response.json();
-        totalPages = moviesResult.total_pages;
-        if (genre === 0 || genre === "0") {
-          moviesList.push(...moviesResult.results);
-        } else {
-          console.log(moviesResult.results.filter((movie) => movie.genre_ids.includes(+genre) && movie.adult === false));
-          moviesList.push(...moviesResult.results.filter((movie) => movie.genre_ids.includes(+genre) && movie.adult === false));
+        else {
+          if (searchType === "1") moviesList.push(...moviesResult.results.filter((movie) => movie.genre_ids.includes(+genre)));
+          else if (searchType === "2")
+            moviesList.push(
+              ...moviesResult.results.filter(
+                (movie) => movie.genre_ids.includes(+genre) && movie.original_title.includes(searchTerm) && movie.adult === false
+              )
+            );
         }
       } while (page <= totalPages);
     } else {
-      let page = 1;
       do {
+        page++;
         response = await fetch(POPULAR_MOVIES_URL + "&page=" + page);
         const moviesResult = await response.json();
         totalPages = moviesResult.total_pages;
@@ -131,17 +61,42 @@ export const SearchBar = ({ setSearchTerm, searchTerm, setIsLoading, setMovies, 
               (movie) => movie.genre_ids.includes(+genre) && movie.overview.includes(searchTerm) && movie.adult === false
             )
           );
-        page++;
       } while (page <= 100);
     }
     setMovies(moviesList);
+  };
+
+  const handleForm = (ev) => {
+    ev.preventDefault();
+    handleSearch();
+  };
+
+  useEffect(() => {
+    handleSearch();
+  }, [genre, searchType]);
+
+  const handleSearch = () => {
+    setIsLoading(true);
+    searchType === "1" ? searchMovies() : searchType === "2" ? searchMoviesByOriginalTitle() : searchMoviesByOverview();
+  };
+
+  const searchMovies = async () => {
+    searchTerm === "" ? await getLatestMovies() : await getMoviesWithSearchterm();
     setIsLoading(false);
     setShowMessage(false);
   };
 
-  const handleSearch = () => {
-    console.log(searchType);
-    searchType === "1" ? searchMovies() : searchType === "2" ? searchMoviesByOriginalTitle() : searchMoviesByOverview();
+  const searchMoviesByOriginalTitle = async () => {
+    searchTerm === "" ? await getLatestMovies() : await getMoviesWithSearchterm();
+
+    setIsLoading(false);
+    setShowMessage(false);
+  };
+
+  const searchMoviesByOverview = async () => {
+    searchTerm === "" ? await getLatestMovies() : await getMoviesWithSearchterm();
+    setIsLoading(false);
+    setShowMessage(false);
   };
 
   return (

@@ -3,7 +3,6 @@ import { Header } from "../components/header";
 import { MovieCard } from "../components/movieCard";
 import { SearchBar } from "../components/searchBar";
 import { Spinner } from "../components/spinner";
-import { LATEST_MOVIES_URL } from "../services/utils";
 
 export const SearchPage = ({}) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -12,20 +11,7 @@ export const SearchPage = ({}) => {
   const [showMessage, setShowMessage] = useState(false);
   const [showNoResults, setShowNoResults] = useState(false);
 
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   fetch(LATEST_MOVIES_URL)
-  //     .then((response) => response.json())
-  //     .then((moviesList) => {
-  //       setMovies(moviesList.results);
-  //       setTimeout(() => {
-  //         setIsLoading(false);
-  //         setShowMessage(true);
-  //       }, 1000);
-  //     });
-  // }, []);
   useEffect(() => {
-    console.log("showNoResults: "+ (movies && movies.length < 1));
     movies && movies.length < 1 ? setShowNoResults(true) : setShowNoResults(false);
   }, [movies]);
 
@@ -50,20 +36,18 @@ export const SearchPage = ({}) => {
         </div>
         <div className="row">
           <div className="col-8 m-auto">
-            {isLoading ? (
-              <Spinner></Spinner>
-            ) : (movies && movies.length >= 1) ? (
+            {isLoading && <Spinner></Spinner>}
+            {(!!isLoading || movies) && (
               <>
                 {showMessage && <h3 className="mb-5">Ahora en cines</h3>}
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 d-flex justify-content-evenly">
-                  {movies.map((movie, index) => (
+                  {movies && movies.map((movie, index) => (
                     <MovieCard className="col" movie={movie} key={index}></MovieCard>
                   ))}
                 </div>
               </>
-            ) : (
-              showNoResults && <p className="h2 text-info">No hay resultados para su busqueda</p>
             )}
+            {showNoResults && <p className="h2 text-info">No hay resultados para su busqueda</p>}
           </div>
         </div>
       </div>
