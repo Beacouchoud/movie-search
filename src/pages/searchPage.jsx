@@ -24,7 +24,7 @@ export const SearchPage = ({}) => {
     <>
       <div className="container-fluid">
         <div className="row my-5" id="header">
-          <Header ></Header>
+          <Header></Header>
         </div>
         <div className="row my-5">
           <div className="col-10 m-auto">
