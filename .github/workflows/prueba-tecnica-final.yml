@@ -1,7 +1,10 @@
 name: Branching
  
- on: [push]
- 
+on:
+  push:
+    branches:
+      - master
+      
  jobs:
    Deployment:
      runs-on: ubuntu-latest
