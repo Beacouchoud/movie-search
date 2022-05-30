@@ -129,7 +129,7 @@ export const SearchBar = ({ setSearchTerm, searchTerm, setIsLoading, setMovies, 
         </span>
         <span>
           <button className="btn btn-outline-info btn-lg" type="button" onClick={handleReset}>
-            Reset
+            Limpiar
           </button>
         </span>
       </div>
