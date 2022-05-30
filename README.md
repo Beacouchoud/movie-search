@@ -67,6 +67,8 @@ You can even see the top 10 most popular movies of the moment on TMBD.
 
 Finally, all these features have been implemented to the series search section. And in addition to performing any search or viewing the top 10, you will also see the series that are currently on air.
 
+GitHub Pages: [Movie Searcher](https://beacouchoud.github.io/movie-search/)
+
 
 ### Demo movies: 
 
