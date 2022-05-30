@@ -50,14 +50,14 @@ export const SearchBar = ({ setSearchTerm, searchTerm, setIsLoading, setMovies, 
           if (searchType === "1") moviesList.push(...moviesResult.results);
           else if (searchType === "2")
             moviesList.push(
-              ...moviesResult.results.filter((movie) => movie.original_title.includes(searchTerm))
+              ...moviesResult.results.filter((movie) => (movie.original_title || movie.original_name).includes(searchTerm))
             );
         }
         else {
           if (searchType === "1") moviesList.push(...moviesResult.results.filter((movie) => movie?.genre_ids.includes(+genre)));
           else if (searchType === "2")
             moviesList.push(
-              ...moviesResult.results.filter((movie) => movie.genre_ids.includes(+genre) && movie.original_title.includes(searchTerm))
+              ...moviesResult.results.filter((movie) => movie.genre_ids.includes(+genre) && (movie.original_title || movie.original_name).includes(searchTerm))
             );
         }
       } while (page <= totalPages);
