@@ -29,9 +29,6 @@ jobs:
       - name: Instala los paquetes
         run: npm install
 
-      - name: Ejecuta los tests
-        run: npm run test
-
       - name: Compila la build
         run: npm run build
 
