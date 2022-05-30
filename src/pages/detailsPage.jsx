@@ -17,7 +17,6 @@ export const DetailsPage = ({}) => {
     fetch(BASE_MOVIE_URL + movieId + API_KEY + LANG_ES)
       .then((response) => response.json())
       .then((movie) => {
-        console.log(movie);
         setMovie(movie);
         setTimeout(() => {
           setIsLoading(false);
@@ -34,13 +33,13 @@ export const DetailsPage = ({}) => {
         {movie && (
           <>
             <div className="col4 pt-3">
-              <figure class="figure">
+              <figure className="figure">
                 <img
                   src={BASE_IMG_URL + (movie.poster_path || movie.backdrop_path)}
-                  class="card-img-top figure-img img-fluid rounded"
+                  className="card-img-top figure-img img-fluid rounded"
                   alt="..."
                 />
-                <figcaption class="figure-caption">{movie.tagline}</figcaption>
+                <figcaption className="figure-caption">{movie.tagline}</figcaption>
               </figure>
             </div>
             <div className="col4 d-flex flex-column text-start justify-content-between pt-3 pb-5">
