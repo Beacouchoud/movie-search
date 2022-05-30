@@ -10,3 +10,4 @@ export const POPULAR_MOVIES_URL = API_URL+ "movie/popular"+API_KEY+LANG_ES;
 export const POPULAR_SERIES_URL = API_URL+ "tv/popular"+API_KEY+LANG_ES;
 export const BASE_IMG_URL = "https://image.tmdb.org/t/p/w500"
 export const GET_GENRES_URL = API_URL+"genre/movie/list"+API_KEY+LANG_ES;
+export const GET_GENRES_TV_URL = API_URL+"genre/tv/list"+API_KEY+LANG_ES;

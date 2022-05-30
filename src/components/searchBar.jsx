@@ -4,7 +4,7 @@ import { GenreSelector } from "./genreSelector";
 import "../static/styles/forms.css";
 import { SearchTypeSelector } from "./searchTypeSelector";
 
-export const SearchBar = ({ setSearchTerm, searchTerm, setIsLoading, setMovies, setShowMessage }) => {
+export const SearchBar = ({ setSearchTerm, searchTerm, setIsLoading, setMovies, setShowMessage, searchSeries }) => {
   const [genre, setGenre] = useState(0);
   const [searchType, setSearchType] = useState("1");
   let page = 0;
@@ -109,7 +109,7 @@ export const SearchBar = ({ setSearchTerm, searchTerm, setIsLoading, setMovies, 
     <form className="d-flex" onSubmit={handleForm}>
       <div className="input-group">
         <span>
-          <GenreSelector setGenre={setGenre} genre={genre} className="flex-shrink-1 flex-grow-0 "></GenreSelector>
+          <GenreSelector setGenre={setGenre} genre={genre} searchSeries={searchSeries} className="flex-shrink-1 flex-grow-0 "></GenreSelector>
         </span>
         <span>
           <SearchTypeSelector setSearchType={setSearchType} searchType={searchType} className="flex-shrink-1 flex-grow-0 "></SearchTypeSelector>
