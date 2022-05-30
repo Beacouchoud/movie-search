@@ -27,7 +27,7 @@ export const SearchBar = ({ setSearchTerm, searchTerm, setIsLoading, setMovies, 
       const moviesResult = await response.json();
       totalPages = moviesResult.total_pages;
       if (+genre === 0) {
-        moviesList.push(...moviesResult.results.filter((movie) => (!!movie.adult ? movie.adult === false : movie)));
+        moviesList.push(...moviesResult.results);
       } else {
         moviesList.push(...moviesResult.results.filter((movie) => movie.genre_ids.includes(+genre)));
       }
@@ -46,16 +46,18 @@ export const SearchBar = ({ setSearchTerm, searchTerm, setIsLoading, setMovies, 
         response = await fetch(SEARCH_URL + searchTerm + "&page=" + page);
         const moviesResult = await response.json();
         totalPages = moviesResult.total_pages;
-        if (+genre === 0) moviesList.push(...moviesResult.results.filter((movie) => (!!movie.adult ? movie.adult === false : movie)));
+        if (+genre === 0) {
+          if (searchType === "1") moviesList.push(...moviesResult.results);
+          else if (searchType === "2")
+            moviesList.push(
+              ...moviesResult.results.filter((movie) => movie.original_title.includes(searchTerm))
+            );
+        }
         else {
           if (searchType === "1") moviesList.push(...moviesResult.results.filter((movie) => movie?.genre_ids.includes(+genre)));
           else if (searchType === "2")
             moviesList.push(
-              ...moviesResult.results.filter((movie) =>
-                movie.genre_ids.includes(+genre) && movie.original_title.includes(searchTerm) && !!movie.adult
-                  ? movie.adult === false
-                  : movie
-              )
+              ...moviesResult.results.filter((movie) => movie.genre_ids.includes(+genre) && movie.original_title.includes(searchTerm))
             );
         }
       } while (page <= totalPages);
@@ -66,17 +68,10 @@ export const SearchBar = ({ setSearchTerm, searchTerm, setIsLoading, setMovies, 
         response = await fetch(POPULAR_URL + "&page=" + page);
         const moviesResult = await response.json();
         totalPages = moviesResult.total_pages;
-        if (+genre === 0)
-          moviesList.push(
-            ...moviesResult.results.filter((movie) =>
-              movie.overview.includes(searchTerm) && !!movie.adult ? movie.adult === false : movie
-            )
-          );
+        if (+genre === 0) moviesList.push(...moviesResult.results.filter((movie) => movie.overview.includes(searchTerm)));
         else
           moviesList.push(
-            ...moviesResult.results.filter((movie) =>
-              movie.genre_ids.includes(+genre) && movie.overview.includes(searchTerm) && !!movie.adult ? movie.adult === false : movie
-            )
+            ...moviesResult.results.filter((movie) => movie.genre_ids.includes(+genre) && movie.overview.includes(searchTerm))
           );
       } while (page <= 100);
     }
