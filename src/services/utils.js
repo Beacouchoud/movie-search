@@ -7,5 +7,6 @@ export const BASE_SEARCH_MOVIE_URL = API_URL+"search/movie"+API_KEY+LANG_ES+"&qu
 export const BASE_SEARCH_SERIE_URL = API_URL+"search/movie";
 export const LATEST_MOVIES_URL = API_URL+"movie/now_playing"+API_KEY+LANG_ES+"&region=ES";
 export const POPULAR_MOVIES_URL = API_URL+ "movie/popular"+API_KEY+LANG_ES;
+export const POPULAR_SERIES_URL = API_URL+ "tv/popular"+API_KEY+LANG_ES;
 export const BASE_IMG_URL = "https://image.tmdb.org/t/p/w500"
 export const GET_GENRES_URL = API_URL+"genre/movie/list"+API_KEY+LANG_ES;

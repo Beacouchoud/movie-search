@@ -6,8 +6,8 @@ import { SearchBar } from "../components/searchBar";
 import { Spinner } from "../components/spinner";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 
-export const SearchPage = ({}) => {
-  const [searchSeries, setSearchSeries] = useState(false);
+export const SearchPage = ({searchSeries, setSearchSeries }) => {
+
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [movies, setMovies] = useState();

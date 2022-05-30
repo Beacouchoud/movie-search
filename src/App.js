@@ -3,15 +3,17 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SearchPage } from "./pages/searchPage";
 import { DetailsPage } from "./pages/detailsPage";
 import { PopularMoviesPage } from "./pages/popularMoviesPage";
+import { useState } from "react";
 
 function App() {
+  const [searchSeries, setSearchSeries] = useState(false);
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<SearchPage />} />
-          <Route path=":movieId" element={<DetailsPage />} />
-          <Route path="/popular" element={<PopularMoviesPage />} />
+          <Route path="/" element={<SearchPage searchSeries={searchSeries} setSearchSeries={setSearchSeries} />} />
+          <Route path=":movieId" element={<DetailsPage  searchSeries={searchSeries} setSearchSeries={setSearchSeries} />} />
+          <Route path="/popular" element={<PopularMoviesPage searchSeries={searchSeries} setSearchSeries={setSearchSeries}  />} />
         </Routes>
       </BrowserRouter>
       <script
