@@ -10,24 +10,24 @@ export const SearchPage = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [movies, setMovies] = useState();
   const [showMessage, setShowMessage] = useState(false);
+  const [showNoResults, setShowNoResults] = useState(false);
 
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   fetch(LATEST_MOVIES_URL)
+  //     .then((response) => response.json())
+  //     .then((moviesList) => {
+  //       setMovies(moviesList.results);
+  //       setTimeout(() => {
+  //         setIsLoading(false);
+  //         setShowMessage(true);
+  //       }, 1000);
+  //     });
+  // }, []);
   useEffect(() => {
-    setIsLoading(true);
-    fetch(LATEST_MOVIES_URL)
-      .then((response) => response.json())
-      .then((moviesList) => {
-        setMovies(moviesList.results);
-        setTimeout(() => {
-          setIsLoading(false);
-          setShowMessage(true);
-        }, 1000);
-      });
-  }, []);
-
-  const vaciar =()=> {
-    debugger;
-    setMovies(null);
-  }
+    console.log("showNoResults: "+ (movies && movies.length < 1));
+    movies && movies.length < 1 ? setShowNoResults(true) : setShowNoResults(false);
+  }, [movies]);
 
   return (
     <>
@@ -36,24 +36,23 @@ export const SearchPage = ({}) => {
           <Header></Header>
         </div>
         <div className="row my-5">
-          <div className="col-6 m-auto">
+          <div className="col-10 m-auto">
             <SearchBar
               setSearchTerm={setSearchTerm}
               searchTerm={searchTerm}
               setIsLoading={setIsLoading}
               setMovies={setMovies}
-              vaciar={vaciar}
               movies={movies}
               setShowMessage={setShowMessage}
+              setShowNoResults={setShowNoResults}
             ></SearchBar>
           </div>
-
         </div>
         <div className="row">
           <div className="col-8 m-auto">
-            {isLoading && <Spinner></Spinner>}
-
-            {movies && (
+            {isLoading ? (
+              <Spinner></Spinner>
+            ) : (movies && movies.length >= 1) ? (
               <>
                 {showMessage && <h3 className="mb-5">Ahora en cines</h3>}
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 d-flex justify-content-evenly">
@@ -62,6 +61,8 @@ export const SearchPage = ({}) => {
                   ))}
                 </div>
               </>
+            ) : (
+              showNoResults && <p className="h2 text-info">No hay resultados para su busqueda</p>
             )}
           </div>
         </div>
