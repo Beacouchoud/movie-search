@@ -7,7 +7,6 @@ import { Spinner } from "../components/spinner";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 export const SearchPage = ({}) => {
-  const [searchSeries, setSearchSeries] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [movies, setMovies] = useState();
@@ -25,7 +24,7 @@ export const SearchPage = ({}) => {
     <>
       <div className="container-fluid">
         <div className="row my-5" id="header">
-          <Header searchSeries={searchSeries} setSearchSeries={setSearchSeries}></Header>
+          <Header></Header>
         </div>
         <div className="row my-5">
           <div className="col-10 m-auto">
