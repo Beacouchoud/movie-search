@@ -35,7 +35,7 @@ export const DetailsPage = ({ searchSeries, setSearchSeries }) => {
   return (
     <div className="container">
       <div className="row my-5">
-        <Header></Header>
+        <Header  searchSeries={searchSeries} setSearchSeries={setSearchSeries}></Header>
       </div>
       <div className="row row-cols-2 mx-auto">
         {isLoading && <Spinner></Spinner>}
